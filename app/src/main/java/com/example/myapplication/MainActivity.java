@@ -1,12 +1,18 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -42,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
     /** Called when the user taps the Send button */
     public void showWord(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        Intent intent = new Intent(this, DisplayWordActivity.class);
         startActivity(intent);
     }
 }
