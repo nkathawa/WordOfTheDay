@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import static com.example.myapplication.R.drawable.word;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,10 +60,17 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        Cursor resultSet = dbh.myDataBase.rawQuery("Select * from wordsTable",null);
+        Cursor resultSet = dbh.myDataBase.rawQuery("Select word from wordsTable order by RANDOM() LIMIT 1",null);
+//        Cursor resultSet = dbh.myDataBase.rawQuery("Select * from wordsTable",null);
         resultSet.moveToFirst();
         String word = resultSet.getString(0);
-        System.out.print(word);
+        dbh.myDataBase.rawQuery("Update wordsTable Set seen = 1 Where word = '" + word + "';",null);
+        TextView the_word = (TextView) findViewById(R.id.the_word);
+        the_word.setText(word);
+
+//        resultSet = dbh.myDataBase.rawQuery("Select seen from wordsTable Where word='" + word + "'",null);
+//        String bool = resultSet.toString();
+//        Log.d("D", bool);
 
         resultSet.close();
     }
@@ -109,11 +119,11 @@ public class MainActivity extends AppCompatActivity
 //            setContentView(R.layout.activity_favorite_words);
             // Handle the camera action
         } else if (id == R.id.history) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
 //            setContentView(R.layout.activity_word_history);
         } else if (id == R.id.settings) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
 //            setContentView(R.layout.activity_main);
         }
