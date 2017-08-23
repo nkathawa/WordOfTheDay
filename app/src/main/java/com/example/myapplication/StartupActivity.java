@@ -1,42 +1,25 @@
 package com.example.myapplication;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
-public class DisplayWordActivity extends ActionBarActivity {
+public class StartupActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_word);
-        DataBaseHelper dbh = null;
-        try {
-            dbh = new DataBaseHelper(getApplicationContext());
-        } catch(java.io.IOException ioe) {
-            Log.d("MyApp", "Database doesn't exist");
-        }
-        try {
-            dbh.opendatabase();
-        } catch(java.sql.SQLException sqlE) {
-
-        }
-
-        Cursor resultSet = dbh.myDataBase.rawQuery("Select * from wordsTable",null);
-        resultSet.moveToFirst();
-        String word = resultSet.getString(0);
-        System.out.print(word);
+        setContentView(R.layout.activity_startup);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_display_word, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -53,5 +36,12 @@ public class DisplayWordActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /** Called when the user taps the Send button */
+    public void showWord(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

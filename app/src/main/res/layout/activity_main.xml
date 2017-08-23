@@ -1,54 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <TextView
-        android:id="@+id/textView"
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:text="Word of the Day"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main2_drawer" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="65dp"
-        android:text="Welcome to the Word of the Day app. Please click the button below to get started!"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="69dp"
-        android:onClick="showWord"
-        android:text="Get Word"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        app:srcCompat="@drawable/word"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_width = "100dp"
-        android:layout_height= "100dp"
-        android:layout_marginTop="37dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
