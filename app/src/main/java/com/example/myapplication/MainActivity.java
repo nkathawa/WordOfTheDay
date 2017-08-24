@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity
 //        Cursor resultSet = dbh.myDataBase.rawQuery("Select * from wordsTable",null);
         resultSet.moveToFirst();
         String word = resultSet.getString(0);
+        String word_orig = word;
+        word = word.replaceAll("\'","\\\\'");
         dbh.myDataBase.rawQuery("Update wordsTable Set seen = 1 Where word = '" + word + "';",null);
         TextView the_word = (TextView) findViewById(R.id.the_word);
-        the_word.setText(word);
-
+        the_word.setText(word_orig);
 //        resultSet = dbh.myDataBase.rawQuery("Select seen from wordsTable Where word='" + word + "'",null);
 //        String bool = resultSet.toString();
 //        Log.d("D", bool);
