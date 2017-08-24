@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("HELLO","MAIN RUNNING???");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity
 //        setContentView(R.layout.activity_main);
         DataBaseHelper dbh = null;
         try {
-            dbh = new DataBaseHelper(getApplicationContext());
+            dbh = new DataBaseHelper(this);
+//            getApplicationContext()
         } catch(java.io.IOException ioe) {
             Log.d("MyApp", "Database doesn't exist");
         }
@@ -61,12 +63,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         Cursor resultSet = dbh.myDataBase.rawQuery("Select word from wordsTable order by RANDOM() LIMIT 1",null);
-//        Cursor resultSet = dbh.myDataBase.rawQuery("Select * from wordsTable",null);
         resultSet.moveToFirst();
         String word = resultSet.getString(0);
         String word_orig = word;
         word = word.replaceAll("\'","\\\\'");
-        dbh.myDataBase.rawQuery("Update wordsTable Set seen = 1 Where word = '" + word + "';",null);
+        dbh.myDataBase.execSQL("Update wordsTable Set seen = 1 Where word = '" + word + "';");
+        // testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        dbh.myDataBase.execSQL("Update wordsTable Set favorite = 1 Where word = '1080';");
         TextView the_word = (TextView) findViewById(R.id.the_word);
         the_word.setText(word_orig);
 //        resultSet = dbh.myDataBase.rawQuery("Select seen from wordsTable Where word='" + word + "'",null);
