@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
         android:onClick="showWord"
-        android:text="Get Word"
+        android:text="Begin Journey"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
@@ -46,8 +46,7 @@
         android:layout_height= "100dp"
         android:layout_marginTop="37dp"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_centerHorizontal="true" />
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
 
