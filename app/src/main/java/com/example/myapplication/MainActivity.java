@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import static com.example.myapplication.R.drawable.word;
+import static com.example.myapplication.R.id.fab;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,15 +30,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,14 +59,52 @@ public class MainActivity extends AppCompatActivity
         String word = resultSet.getString(0);
         String word_orig = word;
         word = word.replaceAll("\'","\\\\'");
+        final String inner_word = word;
         dbh.myDataBase.execSQL("Update wordsTable Set seen = 1 Where word = '" + word + "';");
         // testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        dbh.myDataBase.execSQL("Update wordsTable Set favorite = 1 Where word = '1080';");
+//        dbh.myDataBase.execSQL("Update wordsTable Set favorite = 1 Where word = '1080';");
         TextView the_word = (TextView) findViewById(R.id.the_word);
         the_word.setText(word_orig);
 //        resultSet = dbh.myDataBase.rawQuery("Select seen from wordsTable Where word='" + word + "'",null);
 //        String bool = resultSet.toString();
 //        Log.d("D", bool);
+
+        FloatingActionButton Fab = (FloatingActionButton) findViewById(R.id.fab);
+        Fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+
+        FloatingActionButton Fab1 = (FloatingActionButton) findViewById(R.id.fabFave);
+        Fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBaseHelper dbh1 = null;
+                try {
+                    dbh1 = new DataBaseHelper(getApplicationContext());
+//            getApplicationContext()
+                } catch(java.io.IOException ioe) {
+                    Log.d("MyApp", "Database doesn't exist");
+                }
+                try {
+                    dbh1.opendatabase();
+                } catch(java.sql.SQLException sqlE) {
+
+                }
+                dbh1.myDataBase.execSQL("Update wordsTable Set favorite = 1 Where word = '" + inner_word + "';");
+
+                Snackbar.make(view, "Word added to favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         resultSet.close();
     }
@@ -131,11 +161,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 //            setContentView(R.layout.activity_main);
         }
-//        else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
