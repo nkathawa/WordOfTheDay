@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity
 //            MainActivity.this.setProgressBarIndeterminateVisibility(false);
             Log.d("THE MSG:", result);
             TextView tv = (TextView)findViewById(R.id.textView5);
+
+            
+
             tv.setText(result);
 //            setContentView(tv);
 //            tv.setText(getString(R.string.result_text, result));
@@ -211,7 +214,6 @@ public class MainActivity extends AppCompatActivity
 
         performRequest(word);
 
-        Log.d("FUCK", "FUCK YOUUUUUUUUUUUUUUUUUUUUUUUUUUU");
         final String inner_word = word;
         dbh.myDataBase.execSQL("Update wordsTable Set seen = 1 Where word = '" + word + "';");
         // testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
