@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,7 +42,24 @@ public class StartupActivity extends ActionBarActivity {
 
     /** Called when the user taps the Send button */
     public void showWord(View view) {
+
+//        Handler handler = new Handler(new Handler.Callback() {
+//            @Override
+//            public boolean handleMessage(Message msg) {
+//                switch (msg.what) {
+//                    case 1:
+//                        //Strat another Activity Here
+//
+//                    default:
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+
         // Do something in response to button
+//        this.sendEmptyMessageDelayed(1, 1000);
+        this.onResume();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

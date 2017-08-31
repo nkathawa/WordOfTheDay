@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -16,17 +17,84 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import static com.example.myapplication.R.drawable.word;
 import static com.example.myapplication.R.id.fab;
+import static com.example.myapplication.R.id.textView5;
+
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.UncachedSpiceService;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.SpiceRequest;
+import com.octo.android.robospice.request.listener.RequestListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+
+    @Override
+    protected void onStart() {
+        spiceManager.start(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+//        super.onResume();
+        spiceManager.shouldStop();
+        super.onStop();
+    }
+
+//    @Override
+//    protected void super.onResume() {
+//
+//    }
+
+    private void performRequest(String searchQuery) {
+//        resultTextView.setText("");
+
+//        MainActivity.this.setProgressBarIndeterminateVisibility(true);
+
+        ReverseStringRequest request = new ReverseStringRequest(searchQuery);
+        spiceManager.execute(request, new ReverseStringRequestListener());
+
+//        hideKeyboard();
+    }
+
+    private final class ReverseStringRequestListener implements
+            RequestListener<String> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(MainActivity.this,
+                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        @Override
+        public void onRequestSuccess(String result) {
+//            MainActivity.this.setProgressBarIndeterminateVisibility(false);
+            Log.d("THE MSG:", result);
+            TextView tv = (TextView)findViewById(R.id.textView5);
+            tv.setText(result);
+//            setContentView(tv);
+//            tv.setText(getString(R.string.result_text, result));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("HELLO","MAIN RUNNING???");
         super.onCreate(savedInstanceState);
+
+//        super.onResume();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,11 +122,45 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        Cursor resultSet = dbh.myDataBase.rawQuery("Select word from wordsTable order by RANDOM() LIMIT 1",null);
+        Cursor resultSet = dbh.myDataBase.rawQuery("Select word from wordsTable Where seen = 0 order by RANDOM() LIMIT 1",null);
         resultSet.moveToFirst();
         String word = resultSet.getString(0);
+
+
+
+//        spiceManager.start(this);
+//        RequestListener requestListener = new RequestListener() {
+//            @Override
+//            public void onRequestFailure(SpiceException spiceException) {
+//
+//            }
+//
+//            @Override
+//            public void onRequestSuccess(Object o) {
+//
+//            }
+//        };
+//        SpiceRequest spiceRequest = new SpiceRequest(("https://google.com").getClass()) {
+//            @Override
+//            public Object loadDataFromNetwork() throws Exception {
+//                return null;
+//            }
+//
+//            @Override
+//            public int compareTo(@NonNull Object o) {
+//                return 0;
+//            }
+//        };
+//        spiceManager.execute(spiceRequest, requestListener);
+//        spiceManager.shouldStop();
+
+//        java.net.HttpURLConnection("http://www.dictionaryapi.com/api/v1/references/collegiate/xml/" + word + "?key=254cc331-d202-4e64-97cb-7e6f6d543fce");
+
         String word_orig = word;
         word = word.replaceAll("\'","\\\\'");
+
+        performRequest(word);
+
         final String inner_word = word;
         dbh.myDataBase.execSQL("Update wordsTable Set seen = 1 Where word = '" + word + "';");
         // testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
