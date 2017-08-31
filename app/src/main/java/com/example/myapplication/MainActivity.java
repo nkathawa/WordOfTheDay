@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -89,7 +91,55 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        performRequest("awesome");
+//        final Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+//                .getBoolean("isFirstRun", true);
+//        if (isFirstRun) {
+//            //show start activity
+////                    this.onResume();
+//            startActivity(new Intent(MainActivity.this, StartupActivity.class));
+//            Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
+//                    .show();
+//        }
+//        handler.sendEmptyMessageDelayed(1, 1000);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        final Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+//                .getBoolean("isFirstRun", true);
+//        Handler handler = new Handler(new Handler.Callback() {
+//            @Override
+//            public boolean handleMessage(Message msg) {
+//                if (isFirstRun) {
+//                    //show start activity
+////                    this.onResume();
+//                    startActivity(new Intent(MainActivity.this, StartupActivity.class));
+//                    Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
+//                            .show();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
+
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            //show start activity
+//            this.onResume();
+            startActivity(new Intent(MainActivity.this, StartupActivity.class));
+            Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
+                    .show();
+        }
+
+
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).commit();
+
         Log.d("HELLO","MAIN RUNNING???");
         super.onCreate(savedInstanceState);
 
@@ -161,6 +211,7 @@ public class MainActivity extends AppCompatActivity
 
         performRequest(word);
 
+        Log.d("FUCK", "FUCK YOUUUUUUUUUUUUUUUUUUUUUUUUUUU");
         final String inner_word = word;
         dbh.myDataBase.execSQL("Update wordsTable Set seen = 1 Where word = '" + word + "';");
         // testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

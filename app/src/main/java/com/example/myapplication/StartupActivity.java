@@ -59,7 +59,9 @@ public class StartupActivity extends ActionBarActivity {
 
         // Do something in response to button
 //        this.sendEmptyMessageDelayed(1, 1000);
-        this.onResume();
+//        this.onResume();
+
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
