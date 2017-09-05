@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
             Log.d("THE MSG:", result);
             TextView tv = (TextView)findViewById(R.id.textView5);
 
-            
+
 
             tv.setText(result);
 //            setContentView(tv);
