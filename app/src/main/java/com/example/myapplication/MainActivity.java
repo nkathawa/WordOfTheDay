@@ -49,25 +49,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onStop() {
-//        super.onResume();
         spiceManager.shouldStop();
         super.onStop();
     }
 
-//    @Override
-//    protected void super.onResume() {
-//
-//    }
-
     private void performRequest(String searchQuery) {
-//        resultTextView.setText("");
-
-//        MainActivity.this.setProgressBarIndeterminateVisibility(true);
-
         ReverseStringRequest request = new ReverseStringRequest(searchQuery);
         spiceManager.execute(request, new ReverseStringRequestListener());
-
-//        hideKeyboard();
     }
 
     private final class ReverseStringRequestListener implements
@@ -81,15 +69,10 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onRequestSuccess(String result) {
-//            MainActivity.this.setProgressBarIndeterminateVisibility(false);
             Log.d("THE MSG:", result);
             TextView tv = (TextView)findViewById(R.id.textView5);
 
-
-
             tv.setText(result);
-//            setContentView(tv);
-//            tv.setText(getString(R.string.result_text, result));
         }
     }
 
@@ -97,56 +80,23 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         performRequest("awesome");
-//        final Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-//                .getBoolean("isFirstRun", true);
-//        if (isFirstRun) {
-//            //show start activity
-////                    this.onResume();
-//            startActivity(new Intent(MainActivity.this, StartupActivity.class));
-//            Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
-//                    .show();
-//        }
-//        handler.sendEmptyMessageDelayed(1, 1000);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        final Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-//                .getBoolean("isFirstRun", true);
-//        Handler handler = new Handler(new Handler.Callback() {
-//            @Override
-//            public boolean handleMessage(Message msg) {
-//                if (isFirstRun) {
-//                    //show start activity
-////                    this.onResume();
-//                    startActivity(new Intent(MainActivity.this, StartupActivity.class));
-//                    Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
-//                            .show();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-
-
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            //show start activity
-//            this.onResume();
             startActivity(new Intent(MainActivity.this, StartupActivity.class));
             Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
                     .show();
         }
-
 
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).commit();
 
         Log.d("HELLO","MAIN RUNNING???");
         super.onCreate(savedInstanceState);
-
-//        super.onResume();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -161,11 +111,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        setContentView(R.layout.activity_main);
         DataBaseHelper dbh = null;
         try {
             dbh = new DataBaseHelper(this);
-//            getApplicationContext()
         } catch(java.io.IOException ioe) {
             Log.d("MyApp", "Database doesn't exist");
         }
@@ -179,36 +127,6 @@ public class MainActivity extends AppCompatActivity
         resultSet.moveToFirst();
         String word = resultSet.getString(0);
 
-
-
-//        spiceManager.start(this);
-//        RequestListener requestListener = new RequestListener() {
-//            @Override
-//            public void onRequestFailure(SpiceException spiceException) {
-//
-//            }
-//
-//            @Override
-//            public void onRequestSuccess(Object o) {
-//
-//            }
-//        };
-//        SpiceRequest spiceRequest = new SpiceRequest(("https://google.com").getClass()) {
-//            @Override
-//            public Object loadDataFromNetwork() throws Exception {
-//                return null;
-//            }
-//
-//            @Override
-//            public int compareTo(@NonNull Object o) {
-//                return 0;
-//            }
-//        };
-//        spiceManager.execute(spiceRequest, requestListener);
-//        spiceManager.shouldStop();
-
-//        java.net.HttpURLConnection("http://www.dictionaryapi.com/api/v1/references/collegiate/xml/" + word + "?key=254cc331-d202-4e64-97cb-7e6f6d543fce");
-
         String word_orig = word;
         word = word.replaceAll("\'","\\\\'");
 
@@ -216,20 +134,13 @@ public class MainActivity extends AppCompatActivity
 
         final String inner_word = word;
         dbh.myDataBase.execSQL("Update wordsTable Set seen = 1 Where word = '" + word + "';");
-        // testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//        dbh.myDataBase.execSQL("Update wordsTable Set favorite = 1 Where word = '1080';");
         TextView the_word = (TextView) findViewById(R.id.the_word);
         the_word.setText(word_orig);
-//        resultSet = dbh.myDataBase.rawQuery("Select seen from wordsTable Where word='" + word + "'",null);
-//        String bool = resultSet.toString();
-//        Log.d("D", bool);
 
         FloatingActionButton Fab = (FloatingActionButton) findViewById(R.id.fab);
         Fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
@@ -245,7 +156,6 @@ public class MainActivity extends AppCompatActivity
                 DataBaseHelper dbh1 = null;
                 try {
                     dbh1 = new DataBaseHelper(getApplicationContext());
-//            getApplicationContext()
                 } catch(java.io.IOException ioe) {
                     Log.d("MyApp", "Database doesn't exist");
                 }
@@ -305,16 +215,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.favorites) {
             Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);
-//            setContentView(R.layout.activity_favorite_words);
-            // Handle the camera action
         } else if (id == R.id.history) {
             Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
-//            setContentView(R.layout.activity_word_history);
         } else if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-//            setContentView(R.layout.activity_main);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

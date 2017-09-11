@@ -41,7 +41,6 @@ public class FavoriteActivity extends AppCompatActivity {
             resultSet.moveToFirst();
             String word = resultSet.getString(0);
             arrayList = new ArrayList<>(Arrays.asList(word));
-            //        arrayList.add(word);
             while (!resultSet.isLast()) {
                 resultSet.moveToNext();
                 word = resultSet.getString(0);

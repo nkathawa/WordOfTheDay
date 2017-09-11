@@ -42,26 +42,6 @@ public class StartupActivity extends ActionBarActivity {
 
     /** Called when the user taps the Send button */
     public void showWord(View view) {
-
-//        Handler handler = new Handler(new Handler.Callback() {
-//            @Override
-//            public boolean handleMessage(Message msg) {
-//                switch (msg.what) {
-//                    case 1:
-//                        //Strat another Activity Here
-//
-//                    default:
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
-
-        // Do something in response to button
-//        this.sendEmptyMessageDelayed(1, 1000);
-//        this.onResume();
-
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

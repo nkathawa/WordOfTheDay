@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -15,11 +14,6 @@
         <activity
             android:name=".StartupActivity"
             android:label="@string/title_activity_display_message" >
-            <!--<intent-filter>-->
-                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".MainActivity"
@@ -36,11 +30,9 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"/>
-
         <service
             android:name="com.octo.android.robospice.UncachedSpiceService"
             android:exported="false" />
-
     </application>
 
 </manifest>

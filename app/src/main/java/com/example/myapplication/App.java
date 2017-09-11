@@ -24,7 +24,6 @@ public class App extends Application {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (!prefs.getBoolean("firstTime", false)) {
-            // <---- run your one time code here
             PreferenceManager.getDefaultSharedPreferences(
                     getApplicationContext())
                     .edit().putBoolean("installed", true).commit();
@@ -32,15 +31,9 @@ public class App extends Application {
             copyAssetFolder(getAssets(), "files",
                     "/data/data/com.example.myapplication/files");
 
-            // mark first time has runned.
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.commit();
-
-//            Intent intent = new Intent(this,StartupActivity.class);
-////            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
         }
     }
 

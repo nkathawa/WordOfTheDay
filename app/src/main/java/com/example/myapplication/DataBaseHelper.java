@@ -31,11 +31,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 //                + "/databases/";
         boolean dbexist = checkdatabase();
         if (dbexist) {
-            //System.out.println("Database exists");
             try {
                 opendatabase();
             } catch(SQLException s) {
-                // print("SQLException");
+
             }
         } else {
             System.out.println("Database doesn't exist");
@@ -68,7 +67,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             String myPath = "/data/data/com.example.myapplication/databases/theWordsDB.db";
 //                    DB_PATH + DB_NAME;
             File dbfile = new File(myPath);
-            //checkdb = SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.OPEN_READWRITE);
             checkdb = dbfile.exists();
         } catch(SQLiteException e) {
             System.out.println("Database doesn't exist");
