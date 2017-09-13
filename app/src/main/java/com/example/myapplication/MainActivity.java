@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity
 
         String word_orig = word;
         word = word.replaceAll("\'","\\\\'");
+        final String share_word = word;
 
         performRequest(word);
 
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "The word I learned today is " + '"' + share_word + '"');
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }

@@ -51,6 +51,7 @@
             android:layout_gravity="center_vertical"
             android:minHeight="20dp"
             android:text="History"
+            android:textColor="#ffffff"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
     </android.support.design.widget.AppBarLayout>
