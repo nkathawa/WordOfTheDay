@@ -29,6 +29,8 @@ import java.net.URL;
 import static com.example.myapplication.R.drawable.word;
 import static com.example.myapplication.R.id.fab;
 import static com.example.myapplication.R.id.textView5;
+import static org.apache.commons.lang3.StringUtils.countMatches;
+import static org.apache.commons.lang3.StringUtils.ordinalIndexOf;
 
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
@@ -36,10 +38,14 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+    private String the_word;
+    private String the_result;
 
     @Override
     protected void onStart() {
@@ -72,6 +78,20 @@ public class MainActivity extends AppCompatActivity
             Log.d("THE MSG:", result);
             TextView tv = (TextView)findViewById(R.id.textView5);
 
+            int numDefs1 = StringUtils.countMatches(result, "<dt>");
+            if(numDefs1 == 0){
+                result = "There are no definitions available for this word. Better luck next time!";
+                the_result = result;
+                tv.setText(result);
+                return;
+            }
+            int numDefs = StringUtils.countMatches(result, "</dt>");
+            result = result.substring(ordinalIndexOf(result, "<dt>", 1), ordinalIndexOf(result, "</dt>", numDefs));
+//            result = result.replaceAll("[</>]", " ");
+            result = result.replaceAll("<[^>]+>", "");
+            result = result.replaceAll(":", "");
+            the_result = result;
+
             tv.setText(result);
         }
     }
@@ -79,7 +99,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        performRequest("awesome");
+//        performRequest(the_word);
+        performRequest("percival");
     }
 
     @Override
@@ -130,6 +151,7 @@ public class MainActivity extends AppCompatActivity
         String word_orig = word;
         word = word.replaceAll("\'","\\\\'");
         final String share_word = word;
+        the_word = word;
 
         performRequest(word);
 
@@ -144,7 +166,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "The word I learned today is " + '"' + share_word + '"');
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "The word I learned today is " + '"' + share_word + '"' +
+                    " and the definition(s) are: " + the_result);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }
