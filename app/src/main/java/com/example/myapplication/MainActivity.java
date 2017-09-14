@@ -88,8 +88,11 @@ public class MainActivity extends AppCompatActivity
             int numDefs = StringUtils.countMatches(result, "</dt>");
             result = result.substring(ordinalIndexOf(result, "<dt>", 1), ordinalIndexOf(result, "</dt>", numDefs));
 //            result = result.replaceAll("[</>]", " ");
+
+            result = result.replace("<dt>", "Definition: ");
             result = result.replaceAll("<[^>]+>", "");
-            result = result.replaceAll(":", "");
+//            result = result.replaceAll("[</>]", "");
+//            result = result.replaceAll(":", "");
             the_result = result;
 
             tv.setText(result);
