@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-//        performRequest(the_word);
-        performRequest("percival");
+        performRequest(the_word);
+//        performRequest("percival");
     }
 
     @Override
