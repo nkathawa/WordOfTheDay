@@ -18,29 +18,11 @@
         android:layout_marginStart="74dp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
         android:layout_marginTop="84dp"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="82dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/textView4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Defintion:"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/the_word"
-        android:layout_alignLeft="@+id/the_word"
-        android:layout_alignStart="@+id/the_word"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="126dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@+id/textView5" />
 
     <TextView
         android:layout_width="228dp"
@@ -53,9 +35,9 @@
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="23dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/the_word" />
 
 </android.support.constraint.ConstraintLayout>

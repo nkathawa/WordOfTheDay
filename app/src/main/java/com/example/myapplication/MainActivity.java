@@ -92,7 +92,10 @@ public class MainActivity extends AppCompatActivity
             result = result.replace("<dt>", "Definition: ");
             result = result.replaceAll("<[^>]+>", "");
 //            result = result.replaceAll("[</>]", "");
-//            result = result.replaceAll(":", "");
+            result = result.replaceAll(":", "");
+            result = result.replace("Definition ", "\nDefinition: ");
+            result = result.replaceAll("[1234567890]", "");
+
             the_result = result;
 
             tv.setText(result);
