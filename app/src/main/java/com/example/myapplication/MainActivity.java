@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         public void onRequestSuccess(String result) {
             Log.d("THE MSG:", result);
             TextView tv = (TextView)findViewById(R.id.textView5);
+            tv.setMovementMethod(new ScrollingMovementMethod());
 
             int numDefs1 = StringUtils.countMatches(result, "<dt>");
             if(numDefs1 == 0){

@@ -8,8 +8,9 @@
     tools:context="com.example.myapplication.MainActivity"
     tools:showIn="@layout/app_bar_main">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/the_word"
         android:id="@+id/the_word"
@@ -18,15 +19,18 @@
         android:layout_marginStart="74dp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="16dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/textView5" />
 
     <TextView
-        android:layout_width="228dp"
-        android:layout_height="310dp"
+        android:maxLines = "200"
+        android:scrollbars = "vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView5"
         android:layout_centerVertical="true"
@@ -37,7 +41,7 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/the_word" />
 
 </android.support.constraint.ConstraintLayout>
