@@ -82,21 +82,46 @@ public class MainActivity extends AppCompatActivity
 
             int numDefs1 = StringUtils.countMatches(result, "<dt>");
             if(numDefs1 == 0){
-                result = "There are no definitions available for this word. Better luck next time!";
-                the_result = result;
-                tv.setText(result);
-                return;
-            }
-            int numDefs = StringUtils.countMatches(result, "</dt>");
-            result = result.substring(ordinalIndexOf(result, "<dt>", 1), ordinalIndexOf(result, "</dt>", numDefs));
-//            result = result.replaceAll("[</>]", " ");
+                DataBaseHelper dbh = null;
+                try {
+                    dbh = new DataBaseHelper(MainActivity.this);
+                } catch(java.io.IOException ioe) {
+                    Log.d("MyApp", "Database doesn't exist");
+                }
+                try {
+                    dbh.opendatabase();
+                } catch(java.sql.SQLException sqlE) {
 
-            result = result.replace("<dt>", "Definition: ");
-            result = result.replaceAll("<[^>]+>", "");
-//            result = result.replaceAll("[</>]", "");
-            result = result.replaceAll(":", "");
-            result = result.replace("Definition ", "\nDefinition: ");
-            result = result.replaceAll("[1234567890]", "");
+                }
+
+                Cursor resultSet = dbh.myDataBase.rawQuery("Select word from wordsTable Where seen = 0 order by RANDOM() LIMIT 1",null);
+                resultSet.moveToFirst();
+                String word = resultSet.getString(0);
+
+                String word_orig = word;
+                word = word.replaceAll("\'","\\\\'");
+                final String share_word = word;
+                the_word = word;
+
+                performRequest(word);
+
+
+
+//                result = "There are no definitions available for this word. Better luck next time!";
+//                the_result = result;
+//                tv.setText(result);
+//                return;
+            }
+//            int numDefs = StringUtils.countMatches(result, "</dt>");
+//            result = result.substring(ordinalIndexOf(result, "<dt>", 1), ordinalIndexOf(result, "</dt>", numDefs));
+////            result = result.replaceAll("[</>]", " ");
+//
+//            result = result.replace("<dt>", "Definition: ");
+//            result = result.replaceAll("<[^>]+>", "");
+////            result = result.replaceAll("[</>]", "");
+//            result = result.replaceAll(":", "");
+//            result = result.replace("Definition ", "\nDefinition: ");
+//            result = result.replaceAll("[1234567890]", "");
 
             the_result = result;
 
